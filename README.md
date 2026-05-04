@@ -194,3 +194,47 @@ Controllers, DTOs
 Shared
 Tests
 Shared
+
+Api Designs for Product Catalogue
+
+PRODUCTS
+──────────────────────────────────────────────────────
+GET     /products                     Browse all products        Customer/Guest
+GET     /products/{id}                Get product details        Customer/Guest
+GET     /products/search?q=           Search by keyword          Customer/Guest
+GET     /products/filter?category=    Filter by category etc     Customer/Guest
+POST    /products                     Create product             Admin
+PUT     /products/{id}                Update product             Admin
+DELETE  /products/{id}                Delete product             Admin
+
+VARIANTS (nested under products)
+──────────────────────────────────────────────────────
+GET     /products/{id}/variants       Get all variants           Customer/Guest
+GET     /products/{id}/variants/{vid} Get specific variant       Customer/Guest
+POST    /products/{id}/variants       Add variant                Admin
+PUT     /products/{id}/variants/{vid} Update variant             Admin
+DELETE  /products/{id}/variants/{vid} Delete variant             Admin
+
+BRANDS
+──────────────────────────────────────────────────────
+GET     /brands                       Get all brands             Customer/Guest
+GET     /brands/{id}                  Get brand by id            Customer/Guest
+POST    /brands                       Create brand               Admin
+PUT     /brands/{id}                  Update brand               Admin
+DELETE  /brands/{id}                  Delete brand               Admin
+
+CATEGORIES
+──────────────────────────────────────────────────────
+GET     /categories                   Get all categories         Customer/Guest
+GET     /categories/{id}              Get category by id         Customer/Guest
+POST    /categories                   Create category            Admin
+PUT     /categories/{id}              Update category            Admin
+DELETE  /categories/{id}              Delete category            Admin
+
+SUBCATEGORIES (nested under categories)
+──────────────────────────────────────────────────────
+GET     /categories/{id}/subcategories       Get all subcategories    Customer/Guest
+GET     /categories/{id}/subcategories/{sid} Get subcategory by id    Customer/Guest
+POST    /categories/{id}/subcategories       Create subcategory       Admin
+PUT     /categories/{id}/subcategories/{sid} Update subcategory       Admin
+DELETE  /categories/{id}/subcategories/{sid} Delete subcategory       Admin
