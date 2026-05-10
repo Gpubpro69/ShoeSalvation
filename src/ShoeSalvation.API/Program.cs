@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using ShoeSalvation.Repository.Data;
 using ShoeSalvation.Repository.Repositories;
+using ShoeSalvation.Service.Interfaces;
+using ShoeSalvation.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -11,7 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // 2. Register Generic Repository
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
+builder.Services.AddScoped<IProductService, ProductService>();
 // 3. Auto migrate on startup — write this yourself
 // Create a scope to resolve scoped services outside of a request
 

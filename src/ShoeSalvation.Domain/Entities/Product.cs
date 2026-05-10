@@ -9,11 +9,11 @@ namespace ShoeSalvation.Domain.Entities
         public string? Description { get; set; }
 
         public required int BrandId { get; set; }
-        public required Brand Brand { get; set; }
+        public  Brand? Brand { get; set; }
         public int CategoryId { get; set; }
-        public required Category Category { get; set; }
+        public  Category? Category { get; set; }
         public int SubCategoryId { get; set; }
-        public required SubCategory SubCategory { get; set; }
+        public  SubCategory? SubCategory { get; set; }
         public string? PrimaryImageUrl { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
