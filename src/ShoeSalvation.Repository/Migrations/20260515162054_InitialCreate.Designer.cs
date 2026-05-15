@@ -12,7 +12,7 @@ using ShoeSalvation.Repository.Data;
 namespace ShoeSalvation.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260507161556_InitialCreate")]
+    [Migration("20260515162054_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -192,6 +192,7 @@ namespace ShoeSalvation.Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -218,12 +219,14 @@ namespace ShoeSalvation.Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("MrpAtPurchase")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("PriceAtPurchase")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
@@ -259,15 +262,19 @@ namespace ShoeSalvation.Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("NewMrp")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("NewSellingPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("OldMrp")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("OldSellingPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductVariantId")
@@ -354,12 +361,14 @@ namespace ShoeSalvation.Repository.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Mrp")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("SellingPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Size")
@@ -603,7 +612,7 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -614,7 +623,7 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -625,13 +634,13 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.Cart", "Cart")
                         .WithMany("CartItems")
                         .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.ProductVariant", "Variant")
                         .WithMany()
                         .HasForeignKey("VariantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Cart");
@@ -644,13 +653,13 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Address");
@@ -663,13 +672,13 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.ProductVariant", "Variant")
                         .WithMany()
                         .HasForeignKey("VariantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -682,13 +691,13 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.User", "ChangedByUser")
                         .WithMany()
                         .HasForeignKey("ChangedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.ProductVariant", "ProductVariant")
                         .WithMany()
                         .HasForeignKey("ProductVariantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ChangedByUser");
@@ -701,19 +710,19 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.Brand", "Brand")
                         .WithMany()
                         .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.SubCategory", "SubCategory")
                         .WithMany()
                         .HasForeignKey("SubCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Brand");
@@ -728,7 +737,7 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -739,7 +748,7 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -750,13 +759,13 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.Order", "Order")
                         .WithMany()
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -769,13 +778,13 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.ProductVariant", "Variant")
                         .WithMany()
                         .HasForeignKey("VariantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -788,7 +797,7 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -799,7 +808,7 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -810,13 +819,13 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasOne("ShoeSalvation.Domain.Entities.ProductVariant", "Variant")
                         .WithMany()
                         .HasForeignKey("VariantId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ShoeSalvation.Domain.Entities.Wishlist", "Wishlist")
                         .WithMany("WishlistItems")
                         .HasForeignKey("WishlistId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Variant");

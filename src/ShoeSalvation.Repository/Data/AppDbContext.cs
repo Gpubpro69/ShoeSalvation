@@ -21,7 +21,35 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<User> Users { get; set; }
     public DbSet<Wishlist> Wishlists { get; set; }
     public DbSet<WishlistItem> WishlistItems { get; set; }
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
 
+        // Disable cascade delete globally
+        foreach (var relationship in modelBuilder.Model.GetEntityTypes()
+            .SelectMany(e => e.GetForeignKeys()))
+        {
+            relationship.DeleteBehavior = DeleteBehavior.Restrict;
+        }
+        modelBuilder.Entity<ProductVariant>(e => {
+            e.Property(p => p.Mrp).HasPrecision(18, 2);
+            e.Property(p => p.SellingPrice).HasPrecision(18, 2);
+        });
+
+        modelBuilder.Entity<PriceHistory>(e => {
+            e.Property(p => p.OldMrp).HasPrecision(18, 2);
+            e.Property(p => p.NewMrp).HasPrecision(18, 2);
+            e.Property(p => p.OldSellingPrice).HasPrecision(18, 2);
+            e.Property(p => p.NewSellingPrice).HasPrecision(18, 2);
+        });
+        modelBuilder.Entity<Order>(e => {
+            e.Property(p => p.TotalAmount).HasPrecision(18, 2);
+        });
+        modelBuilder.Entity<OrderItem>(e => {
+            e.Property(p => p.PriceAtPurchase).HasPrecision(18, 2);
+            e.Property(p => p.MrpAtPurchase).HasPrecision(18, 2);
+        });
+    }
 }
 
 

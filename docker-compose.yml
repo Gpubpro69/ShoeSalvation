@@ -7,10 +7,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__Default=Server=db;Database=ShoeSalvationDb;User=sa;Password=Salvat!on123;TrustServerCertificate=True
     depends_on:
-      - db
-    volumes:
-      - .:/app
-
+      db:
+        condition: service_healthy
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -20,6 +18,11 @@ services:
       - "1433:1433"
     volumes:
       - sqldata:/var/opt/mssql
-
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Salvat!on123", "-Q", "SELECT 1", "-No"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
 volumes:
   sqldata:
