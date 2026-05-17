@@ -448,6 +448,21 @@ namespace ShoeSalvation.Repository.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Brands",
+                columns: new[] { "Id", "CreatedAt", "LogoUrl", "Name" },
+                values: new object[] { 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Nike" });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Sneakers" });
+
+            migrationBuilder.InsertData(
+                table: "SubCategories",
+                columns: new[] { "Id", "CategoryId", "Name" },
+                values: new object[] { 1, 1, "Ankle" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_UserId",
                 table: "Addresses",

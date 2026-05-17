@@ -92,6 +92,14 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Nike"
+                        });
                 });
 
             modelBuilder.Entity("ShoeSalvation.Domain.Entities.Cart", b =>
@@ -162,6 +170,13 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sneakers"
+                        });
                 });
 
             modelBuilder.Entity("ShoeSalvation.Domain.Entities.Order", b =>
@@ -514,6 +529,14 @@ namespace ShoeSalvation.Repository.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Name = "Ankle"
+                        });
                 });
 
             modelBuilder.Entity("ShoeSalvation.Domain.Entities.User", b =>

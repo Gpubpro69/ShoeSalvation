@@ -24,7 +24,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Category>().HasData(
+            new Category { Id = 1, Name = "Sneakers" });
 
+        modelBuilder.Entity<SubCategory>().HasData(
+           new SubCategory {Id=1, CategoryId = 1, Name = "Ankle" });
+        modelBuilder.Entity<Brand>().HasData(
+         new Brand { Id = 1, Name = "Nike", CreatedAt = new DateTime(2024, 1, 1) });
         // Disable cascade delete globally
         foreach (var relationship in modelBuilder.Model.GetEntityTypes()
             .SelectMany(e => e.GetForeignKeys()))
